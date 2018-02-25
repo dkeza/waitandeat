@@ -1,0 +1,48 @@
+<form ng-submit="saveParty()" class="form-inline partyform">
+  <div class="form-group">
+    <label class="sr-only" for="partyName">Party name</label>
+    <input ng-model="newParty.name" type="text" class="form-control" id="partyName" placeholder="Name">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="phoneNumber">Phone number</label>
+    <input ng-model="newParty.phone" type="text" class="form-control" id="phoneNumber" placeholder="Phone">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="sizeOfParty">Size of party</label>
+    <input ng-model="newParty.size" type="text" class="form-control" id="sizeOfParty" placeholder="Size of party">
+  </div>
+  <button type="submit" class="btn btn-default btn-primary">Add party</button>
+</form>
+<div class="form-group">
+  <label class="sr-only" for="searchParty">Search</label>
+  <input ng-model="searchParty" type="text" class="form-control" id="searchParty" placeholder="Search">
+</div>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Done?</th>
+      <th>Info</th>
+      <th>Notified</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tr ng-repeat="party in parties | orderBy:'timestamp' | filter: searchParty">
+    <td><input ng-model="party.done" ng-change="parties.$save(party)" type="checkbox"></td>
+    <td>
+      <div><strong>{{ party.name }} ({{ party.size }} people)</strong></div>
+      <div>{{ party.phone }}</div>
+      <div>
+        {{ party.timestamp | date:'HH:mm:ss' }}
+      </div>
+    </td>
+    <td>
+      <div>
+        {{ party.notified ? 'Yes' : 'No' }}
+      </div>
+    </td>
+    <td>
+      <button ng-click="sendTextMessage(party)" type="submit" class="btn btn-success">Send SMS</button>
+      <button ng-click="parties.$remove(party)" type="submit" class="btn btn-danger">Remove</button>
+    </td>
+  </tr>
+</table>
