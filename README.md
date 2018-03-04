@@ -29,3 +29,6 @@ I also used [Zapier](https://zapier.com) and [Twilio](https://www.twilio.com/) t
   }
 }
 ```
+
+---
+Code was adapted from angularcourse.com
